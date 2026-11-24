@@ -2,8 +2,8 @@
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import type { RootStackParamList } from "../navigation/StackNavigator";
+import type { RootTabParamList } from "../navigation/TabNavigator";
+import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 
 //EL header controla el titulo de la barberia y las barritas que simulan el menu
 // el content maneja lo que es todo el contenido que se va ver dentro del view
@@ -11,7 +11,7 @@ import type { RootStackParamList } from "../navigation/StackNavigator";
 
 export default function HomeScreen() {
   const navigation =
-  useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  useNavigation<BottomTabNavigationProp<RootTabParamList>>();
   return (
     <ScrollView style={styles.container}>
         
@@ -35,7 +35,7 @@ export default function HomeScreen() {
 
           <Pressable
             style={styles.button}
-            onPress={() => navigation.navigate("Services")}
+            onPress={() => navigation.navigate("Booking")}
           >
             <Text style={styles.buttonText}>
               Reservar cita

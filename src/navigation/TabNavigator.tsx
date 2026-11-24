@@ -4,11 +4,13 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
 import ServicesScreen from "../screens/ServicesScreen";
 import AdminLoginScreen from "../screens/AdminLoginScreen";
+import BookingScreen from "../screens/BookingScreen";
 
 // Declarar las pantallas del navegador de pestañas
 export type RootTabParamList = {
   Home: undefined;
   Services: undefined;
+  Booking: { servicio?: string } | undefined;
   AdminLogin: undefined;
 };
 
@@ -53,6 +55,21 @@ export default function TabNavigator() {
             />
           ),
         }}
+      />
+
+     <Tab.Screen
+       name="Booking"
+       component={BookingScreen}
+       options={{
+        title: "Reservar",
+        tabBarIcon: ({ color, size }) => (
+        <Ionicons
+        name="calendar-outline"
+        size={size}
+        color={color}
+        />
+        ),
+       }}
       />
 
       <Tab.Screen
