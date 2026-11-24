@@ -1,6 +1,9 @@
 
 import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import type { RootTabParamList } from "../navigation/TabNavigator";
 
 const services = [
   {
@@ -30,6 +33,10 @@ const services = [
 ] as const;
 
 export default function ServicesScreen() {
+
+  const navigation =
+  useNavigation<BottomTabNavigationProp<RootTabParamList>>();
+  
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Nuestros servicios</Text>
@@ -62,7 +69,8 @@ export default function ServicesScreen() {
 
           <Pressable
             style={styles.button}
-            onPress={() => console.log("Servicio:", service.name)}
+            onPress={()=> navigation.navigate("Booking",{servicio:service.name,})}
+          
           >
             <Text style={styles.buttonText}>
               Seleccionar servicio

@@ -9,8 +9,13 @@ import {
 } from "react-native";
 
 import CustomInput from "../components/CustomInput";
+import { useRoute } from "@react-navigation/native";
+import type { RouteProp } from "@react-navigation/native";
+import type { RootTabParamList } from "../navigation/TabNavigator";
 
 export default function BookingScreen() {
+  const route = useRoute<RouteProp<RootTabParamList, "Booking">>();
+  const servicio = route.params?.servicio;
   const [nombre, setNombre] = useState("");
   const [telefono, setTelefono] = useState("");
 
@@ -37,6 +42,10 @@ export default function BookingScreen() {
 
       <Text style={styles.subtitle}>
         Ingresa tus datos para continuar
+      </Text>
+
+      <Text style={styles.selectedService}>
+      Servicio: {servicio ?? "Sin seleccionar"}
       </Text>
 
       <CustomInput
@@ -69,6 +78,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F6F9",
     padding: 25,
+  },
+  selectedService: {
+  backgroundColor: "#FFFFFF",
+  color: "#0B2A5B",
+  fontSize: 16,
+  fontWeight: "bold",
+  padding: 15,
+  borderRadius: 10,
+  marginBottom: 20,
   },
   title: {
     fontSize: 26,
