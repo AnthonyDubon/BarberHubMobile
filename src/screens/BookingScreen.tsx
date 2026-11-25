@@ -19,22 +19,19 @@ export default function BookingScreen() {
   const [nombre, setNombre] = useState("");
   const [telefono, setTelefono] = useState("");
 
+  const [submitted, setSubmitted] = useState(false);
+
+const nombreError = submitted && nombre.trim() === "";
+
+const telefonoError =
+  submitted && !/^[0-9]{8}$/.test(telefono.trim());
+
+const reservaValida =
+  submitted && !nombreError && !telefonoError;
+
   const handleReservar = () => {
-    if (nombre.trim() === "" || telefono.trim() === "") {
-      Alert.alert("Error", "Completa todos los campos");
-      return;
-    }
-
-    if (!/^[0-9]{8}$/.test(telefono.trim())) {
-      Alert.alert("Error", "El teléfono debe tener 8 dígitos");
-      return;
-    }
-
-    Alert.alert(
-      "Reserva",
-      "Datos validados correctamente"
-    );
-  };
+  setSubmitted(true);
+};
 
   return (
     <View style={styles.container}>
@@ -49,22 +46,41 @@ export default function BookingScreen() {
       </Text>
 
       <CustomInput
-        placeholder="Nombre completo"
-        value={nombre}
-        onChangeText={setNombre}
+      placeholder="Nombre completo"
+      value={nombre}
+      onChangeText={setNombre}
+      error={nombreError}
       />
 
-      <CustomInput
-        placeholder="Teléfono"
-        value={telefono}
-        onChangeText={setTelefono}
-        keyboardType="phone-pad"
-      />
+    {nombreError && (
+     <Text style={styles.errorText}>
+    El nombre es obligatorio
+     </Text>
+    )}
+
+   <CustomInput
+    placeholder="Teléfono"
+    value={telefono}
+    onChangeText={setTelefono}
+    keyboardType="phone-pad"
+    error={telefonoError}
+    />
+
+{telefonoError && (
+  <Text style={styles.errorText}>
+    El teléfono debe tener 8 dígitos
+  </Text>
+)}
 
       <Pressable
         style={styles.button}
         onPress={handleReservar}
       >
+        {reservaValida && (
+     <Text style={styles.successText}>
+      Datos validados correctamente
+     </Text>
+    )}
         <Text style={styles.buttonText}>
           Continuar
         </Text>
@@ -88,6 +104,17 @@ const styles = StyleSheet.create({
   borderRadius: 10,
   marginBottom: 20,
   },
+  errorText: {
+  color: "#C8102E",
+  fontSize: 12,
+  marginBottom: 15,
+},
+successText: {
+  color: "#15803D",
+  fontSize: 14,
+  textAlign: "center",
+  marginTop: 15,
+},
   title: {
     fontSize: 26,
     fontWeight: "bold",
