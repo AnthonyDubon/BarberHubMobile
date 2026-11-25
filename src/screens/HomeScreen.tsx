@@ -1,5 +1,5 @@
 
-import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Pressable,Image } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { RootTabParamList } from "../navigation/TabNavigator";
@@ -27,6 +27,12 @@ export default function HomeScreen() {
           <Text style={styles.title}>
             Tu próximo corte empieza aquí.
           </Text>
+
+          <Image
+          source={require("../../assets/images/barberia.png")}
+          style={styles.barberImage}
+          resizeMode="cover"
+          />
 
           <Text style={styles.description}>
             Elige tu servicio, selecciona tu barbero
@@ -81,6 +87,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F6F9",
   },
+  barberImage: {
+  width: "100%",
+  height: 180,
+  borderRadius: 16,
+  marginBottom: 20,
+},
   header: {
     padding: 20,
     backgroundColor: "#FFFFFF",
