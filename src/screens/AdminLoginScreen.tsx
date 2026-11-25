@@ -9,22 +9,26 @@ export default function AdminLoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [submitted, setSubmitted] = useState(false);
+  const emailError =
+  submitted && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+
+  const passwordError =
+  submitted && password.trim() === "";
+
   // Función que se ejecuta al presionar Iniciar sesión
   const handleLogin = () => {
+  setSubmitted(true);
 
-    // Verificamos que los campos no estén vacíos
-    if (email.trim() === "" || password.trim() === "") {
-      Alert.alert("Error", "Debes completar todos los campos");
-      return;
-    }
+  if (email.trim() === "" || password.trim() === "") {
+    return;
+  }
 
-    // Validamos el formato del correo
-    if (!email.includes("@") || !email.includes(".")) {
-      Alert.alert("Error", "Ingresa un correo válido");
-      return;
-    }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+    return;
+}
 
-    Alert.alert("Correcto", "Datos ingresados correctamente");
+  Alert.alert("Correcto", "Datos ingresados correctamente");
   };
 
   return (
@@ -36,19 +40,33 @@ export default function AdminLoginScreen() {
         Inicia sesión para administrar las citas
       </Text>
 
-      <CustomInput
-      placeholder="Correo electrónico"
-      value={email}
-      onChangeText={setEmail}
-      keyboardType="email-address"
-      />
+     <CustomInput
+     placeholder="Correo electrónico"
+     value={email}
+     onChangeText={setEmail}
+     keyboardType="email-address"
+     error={emailError}
+     />
+
+    {emailError && (
+    <Text style={styles.errorText}>
+    Ingresa un correo válido
+    </Text>
+    )}
 
      <CustomInput
      placeholder="Contraseña"
      value={password}
      onChangeText={setPassword}
      secureTextEntry={true}
-     />
+     error={passwordError}
+    />
+
+    {passwordError && (
+    <Text style={styles.errorText}>
+    La contraseña es obligatoria
+    </Text>
+    )}
 
       <Pressable
         style={styles.button}
@@ -76,6 +94,11 @@ const styles = StyleSheet.create({
     color: "#0B2A5B",
     textAlign: "center",
     marginBottom: 10,
+  },
+  errorText: {
+  color: "#C8102E",
+  fontSize: 12,
+  marginBottom: 15,
   },
   subtitle: {
     fontSize: 15,

@@ -9,6 +9,7 @@ type CustomInputProps = {
   onChangeText: (text: string) => void;
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
+  error?: boolean;
 };
 
 export default function CustomInput({
@@ -17,11 +18,12 @@ export default function CustomInput({
   onChangeText,
   secureTextEntry = false,
   keyboardType = "default",
+  error = false,
 }: CustomInputProps) {
-    
+
   return (
     <TextInput
-      style={styles.input}
+      style={[styles.input, error && styles.inputError]}
       placeholder={placeholder}
       value={value}
       onChangeText={onChangeText}
@@ -42,4 +44,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 16,
   },
+  inputError: {
+  borderColor: "#C8102E",
+  backgroundColor: "#FFF0F2",
+},
 });
