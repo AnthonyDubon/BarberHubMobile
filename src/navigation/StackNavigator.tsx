@@ -1,12 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import TabNavigator from "./TabNavigator";
+import AdminDashboardScreen from "../screens/AdminDashboardScreen";
 
 // Declarar las pantallas y sus parámetros
 export type RootStackParamList = {
-  Home: undefined;
-  Services: undefined;
   MainTabs: undefined;
-  AdminLogin: undefined;
+  AdminDashboard: { email: string };
 };
 
 // Crear el navegador
@@ -19,6 +19,12 @@ export default function StackNavigator() {
         name="MainTabs"
         component={TabNavigator}
         options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="AdminDashboard"
+        component={AdminDashboardScreen}
+        options={{ title: "Administrador" }}
       />
     </Stack.Navigator>
   );

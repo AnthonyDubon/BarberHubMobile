@@ -2,8 +2,14 @@
 import { useState } from "react";
 import {View,Text,TextInput,Pressable,StyleSheet,Alert} from "react-native";
 import CustomInput from "../components/CustomInput";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParamList } from "../navigation/StackNavigator";
 
 export default function AdminLoginScreen() {
+
+  const navigation =
+  useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   // Estados para almacenar los datos del usuario
   const [email, setEmail] = useState("");
@@ -28,7 +34,9 @@ export default function AdminLoginScreen() {
     return;
 }
 
-  Alert.alert("Correcto", "Datos ingresados correctamente");
+  navigation.navigate("AdminDashboard", {
+  email: email.trim(),
+   });
   };
 
   return (
